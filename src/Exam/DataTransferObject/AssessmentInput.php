@@ -23,7 +23,7 @@ class AssessmentInput
      *     "assessment:post:input",
      * })
      */
-    private array $answerIdList;
+    private array $answerIdList = [];
 
     public function getExam(): ?Exam
     {

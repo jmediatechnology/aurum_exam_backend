@@ -5,19 +5,27 @@ namespace App\Exam\DataTransformer;
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use App\Exam\Api\Resource\Assessment;
 use App\Exam\DataTransferObject\AssessmentInput;
-use App\Exam\DataTransferObject\AssessmentOutput;
-use App\Exam\Entity\CorrectAnswer;
 use App\Exam\Entity\Exam;
-use App\Exam\Repository\AnswerRepository;
+use App\Exam\Service\Exam\ScoreCalculator;
 use UnexpectedValueException;
 
 class AssessmentInputDataTransformer implements DataTransformerInterface
 {
-    private AnswerRepository $answerRepository;
+    private ScoreCalculator $scoreCalculator;
 
-    public function __construct(AnswerRepository $answerRepository)
+    public function __construct(ScoreCalculator $scoreCalculator)
     {
-        $this->answerRepository = $answerRepository;
+        $this->scoreCalculator = $scoreCalculator;
+    }
+
+    public function supportsTransformation($data, string $to, array $context = []): bool
+    {
+        if ($data instanceof Assessment) {
+            return false;
+        }
+        $input = $context['input'] ?? [];
+        $class = $input['class'] ?? '';
+        return $class === AssessmentInput::class && $to === Assessment::class;
     }
 
     public function transform($object, string $to, array $context = []): object
@@ -32,49 +40,13 @@ class AssessmentInputDataTransformer implements DataTransformerInterface
         }
 
         $answers = $assessment->getAnswerIdList();
-        $score = $this->calculateScore($exam, $answers);
+
+        //@TODO Pass this score to the Assessment resource?
+        $score = $this->scoreCalculator->calculateScore($exam, $answers);
 
         return new Assessment(
             $exam,
             $answers,
-            $score
         );
-    }
-
-    public function supportsTransformation($data, string $to, array $context = []): bool
-    {
-        if ($data instanceof Assessment) {
-            return false;
-        }
-        $input = $context['input'] ?? [];
-        $class = $input['class'] ?? '';
-        return $class === AssessmentInput::class && $to === Assessment::class;
-    }
-
-    private function calculateScore(Exam $exam, array $intputAnswerList): int
-    {
-        $maxCorrectAnswerAmount = 0;
-        $questions = $exam->getQuestions();
-        foreach ($questions as $question) {
-            $answers = $question->getAnswers();
-            foreach ($answers as $answer) {
-                $correctAnswer = $answer->getCorrectAnswer();
-                if ($correctAnswer instanceof CorrectAnswer) {
-                    $maxCorrectAnswerAmount++;
-                }
-            }
-        }
-
-        $correctAnswerAmount = 0;
-        $answers = $this->answerRepository->findByListOfIds($intputAnswerList);
-        foreach ($answers as $answer) {
-            $correctAnswer = $answer->getCorrectAnswer();
-            if ($correctAnswer instanceof CorrectAnswer) {
-                $correctAnswerAmount++;
-            }
-        }
-
-        $score = (float)($correctAnswerAmount / $maxCorrectAnswerAmount) * 100;
-        return (int)$score;
     }
 }

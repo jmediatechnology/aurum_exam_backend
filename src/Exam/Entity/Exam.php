@@ -94,7 +94,7 @@ class Exam
     }
 
     /**
-     * @param Answer[] $answers
+     * @param Question[] $questions
      */
     public function setQuestions(array $questions): void
     {

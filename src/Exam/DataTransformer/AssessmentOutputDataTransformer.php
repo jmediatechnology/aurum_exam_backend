@@ -18,6 +18,17 @@ class AssessmentOutputDataTransformer implements DataTransformerInterface
         $this->scoreCalculator = $scoreCalculator;
     }
 
+    public function supportsTransformation($data, string $to, array $context = []): bool
+    {
+        if (!$data instanceof Assessment) {
+            return false;
+        }
+        if ($to !== AssessmentOutput::class) {
+            return false;
+        }
+        return true;
+    }
+
     public function transform($object, string $to, array $context = []): object
     {
         if (!$object instanceof Assessment) {
@@ -36,16 +47,5 @@ class AssessmentOutputDataTransformer implements DataTransformerInterface
         return new AssessmentOutput(
             $score
         );
-    }
-
-    public function supportsTransformation($data, string $to, array $context = []): bool
-    {
-        if (!$data instanceof Assessment) {
-            return false;
-        }
-        if ($to !== AssessmentOutput::class) {
-            return false;
-        }
-        return true;
     }
 }
