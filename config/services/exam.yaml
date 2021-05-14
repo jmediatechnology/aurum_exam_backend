@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    App\Exam\:
+        resource: '../../src/Exam/'
+        exclude:
+            - '../../src/Exam/Entity/'
+            - '../../src/Exam/Api/Resource/'
+            - '../../src/Exam/DataTransferObject/'
+
+    App\Exam\DataPersister\AssessmentDataPersister:
+        decorates: 'api_platform.doctrine.orm.data_persister'

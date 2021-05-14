@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Empsys
+{% endblock %}
+
+{% block body %}
+
+    {{ parent() }}
+
+        <div class="center">
+            <div class="LoginForm">
+                <h1>Please sign in</h1>
+
+                <div id="error" class="alert alert-danger" style="display: none;"></div>
+
+                <form enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="inputEmail">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" value=''>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+                    <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+                    <button id="register" class="btn btn-lg">Register new User</button>
+                </form>
+            </div>
+        </div>
+
+{% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+
+
+            $('form').on('click',
+                'button[type=submit]',
+                function(event) {
+
+                    event.preventDefault();
+
+                    const formData = $(event.target).parent().serializeArray();
+                    const data = {};
+                    $(formData).each(function(index, obj){
+                        data[obj.name] = obj.value;
+                    });
+
+                    $.ajax({
+                        method: 'POST',
+                        url: '/authenticate',
+                        data: data,
+                        async: true,
+                    }).done(function( data ) {
+
+                        if($.isEmptyObject(data)){
+                            return;
+                        }
+
+                        if(data.hasOwnProperty('redirect_url') && data.redirect_url.length > 0){
+                            window.location.href = data.redirect_url;
+                        }
+
+                    }).fail(function(data){
+
+                        if (data.hasOwnProperty('responseJSON') && data.responseJSON.hasOwnProperty('error_message') ) {
+                            $('div#error').show();
+                            $('div#error').html( data.responseJSON.error_message );
+                        }
+
+                        console.log(data);
+                        return;
+                    });
+
+                }
+            );
+
+            $('form').on('click',
+                'button#register',
+                function(event) {
+                    event.preventDefault();
+                    window.location.href = '/register';
+                }
+            );
+
+        });
+    </script>
+{% endblock %}

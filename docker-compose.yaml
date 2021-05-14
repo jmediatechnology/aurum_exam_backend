@@ -1,0 +1,89 @@
+version: '3.8'
+
+volumes:
+    database_aurum_exam:
+
+networks:
+    aurum_exam:
+        driver: 'bridge'
+        internal: 'false'
+
+services:
+
+    database:
+        build:
+            context: './.docker/mysql'
+            dockerfile: 'Dockerfile'
+            args:
+                user: '${DOCKER_DATABASE_USER}'
+                password: '${DOCKER_DATABASE_PASSWORD}'
+                database: '${DOCKER_DATABASE_NAME}'
+        restart: 'always'
+        volumes:
+            - 'database_aurum_exam:/var/lib/mysql'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_DATABASE: '${DB_NAME}'
+            MYSQL_USER: '${DB_USER}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: '%'
+        ports:
+            - '3306:3306'
+        networks:
+            aurum_exam:
+                aliases:
+                    - 'database_aurum_exam'
+        extra_hosts:
+            - 'host.docker.internal:127.0.0.1'
+
+    php:
+        build:
+            context: './.docker/php'
+            dockerfile: 'Dockerfile'
+            args:
+                uid: '${DOCKER_PHP_UID}'
+                login: '${DOCKER_PHP_LOGIN}'
+        user: '${DOCKER_PHP_UID}'
+        volumes:
+            - './:/app'
+        working_dir: '/app'
+        environment:
+            TZ: 'Europe/Amsterdam'
+        depends_on:
+            - 'database'
+        networks:
+            aurum_exam:
+                aliases:
+                    - 'php_aurum_exam'
+        extra_hosts:
+            - 'host.docker.internal:127.0.0.1'
+
+    server:
+        build:
+            context: './.docker/apache'
+            dockerfile: 'Dockerfile'
+        ports:
+            - '8080:5000'
+        volumes:
+            - './:/app'
+        depends_on:
+            - 'php'
+        networks:
+            aurum_exam:
+                aliases:
+                    - 'server_aurum_exam'
+        extra_hosts:
+            - 'host.docker.internal:127.0.0.1'
+
+    mail:
+        image: 'mailhog/mailhog'
+        ports:
+            - '1025:1025'
+            - '8025:8025'
+        networks:
+            aurum_exam:
+                aliases:
+                    - 'mail_aurum_exam'
+        extra_hosts:
+            - 'host.docker.internal:127.0.0.1'
+
