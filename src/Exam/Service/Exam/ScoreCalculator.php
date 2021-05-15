@@ -18,36 +18,44 @@ class ScoreCalculator
 
     public function calculateScore(Exam $exam, array $answerIdList): int
     {
-        $maxCorrectAnswerAmount = 0;
-        $questions = $exam->getQuestions();
-        foreach ($questions as $question) {
-            $answers = $question->getAnswers();
-            foreach ($answers as $answer) {
-                $correctAnswer = $answer->getCorrectAnswer();
-                if ($correctAnswer instanceof CorrectAnswer) {
-                    $maxCorrectAnswerAmount++;
-                }
-            }
-        }
+        $maxCorrectAnswerAmount = $this->calculateMaxCorrectAnswerAmount($exam);
         if (0 === $maxCorrectAnswerAmount) {
             throw new UnexpectedValueException('This exam does not have any correct answer');
         }
 
-        $correctAnswerAmount = 0;
+        $correctAnswerAmount = $this->calculateCorrectAnswerAmount($answerIdList);
+
+        $score = (int) (($correctAnswerAmount / $maxCorrectAnswerAmount) * 100);
+        if ($score > 100) {
+            throw new UnexpectedValueException('Score may not be higher than 100');
+        }
+        return $score;
+    }
+
+    private function calculateMaxCorrectAnswerAmount(Exam $exam): int
+    {
+        $maxCorrectAnswerCount = 0;
+        foreach ($exam->getQuestions() as $question) {
+            foreach ($question->getAnswers() as $answer) {
+                $correctAnswer = $answer->getCorrectAnswer();
+                if ($correctAnswer instanceof CorrectAnswer) {
+                    $maxCorrectAnswerCount++;
+                }
+            }
+        }
+        return $maxCorrectAnswerCount;
+    }
+
+    private function calculateCorrectAnswerAmount(array $answerIdList): int
+    {
+        $correctAnswerCount = 0;
         $answers = $this->answerRepository->findByListOfIds($answerIdList);
         foreach ($answers as $answer) {
             $correctAnswer = $answer->getCorrectAnswer();
             if ($correctAnswer instanceof CorrectAnswer) {
-                $correctAnswerAmount++;
+                $correctAnswerCount++;
             }
         }
-
-        $score = (float)($correctAnswerAmount / $maxCorrectAnswerAmount) * 100;
-        $score = (int)$score;
-        if ($score > 100) {
-            throw new UnexpectedValueException('Score may not be higher than 100');
-        }
-
-        return $score;
+        return $correctAnswerCount;
     }
 }

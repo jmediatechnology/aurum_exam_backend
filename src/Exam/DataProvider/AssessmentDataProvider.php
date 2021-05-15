@@ -4,18 +4,20 @@ namespace App\Exam\DataProvider;
 
 use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
-use App\Exam\Api\Resource\Assessment;
 
 class AssessmentDataProvider implements CollectionDataProviderInterface, RestrictedDataProviderInterface
 {
-    public function getCollection(string $resourceClass, string $operationName = null): Assessment
+    public function getCollection(string $resourceClass, string $operationName = null): iterable
     {
-        return new Assessment();
+        //@TODO Fetch a collection of Assessment resources
+        return [];
     }
 
-    public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
-    {
+    public function supports(
+        string $resourceClass,
+        string $operationName = null,
+        array $context = []
+    ): bool {
         return false;
-//        return Assessment::class === $resourceClass;
     }
 }

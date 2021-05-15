@@ -22,17 +22,17 @@ class AssessmentDataPersister implements ContextAwareDataPersisterInterface
         return $this->dataPersister->supports($data, $context);
     }
 
-    public function persist($data, array $context = [])
+    public function persist($data, array $context = []): object
     {
         if (!$data instanceof Assessment) {
             return $this->dataPersister->persist($data, $context);
         }
-
-//        var_dump($data);exit;
+        //@TODO Execute some Assessment persistence logic here
+        return $this->dataPersister->persist($data, $context);
     }
 
-    public function remove($data, array $context = [])
+    public function remove($data, array $context = []): void
     {
-        return $this->dataPersister->remove($data, $context);
+        $this->dataPersister->remove($data, $context);
     }
 }
