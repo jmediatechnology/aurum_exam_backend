@@ -190,13 +190,14 @@ class ScoreCalculatorTest extends TestCase
             $this->answers[6],
             $this->answers[7],
             $this->answers[8],
-            $this->answers[8],
+            $this->answers[9],
+            $this->answers[9],
         ];
 
         $answerRepository = $this->createMock(AnswerRepository::class);
         $answerRepository->method('findByListOfIds')->willReturn($answersGivenByStudent);
 
         $scoreCalculator = new ScoreCalculator($answerRepository);
-        $actual = $scoreCalculator->calculateScore($this->exam, []);
+        $scoreCalculator->calculateScore($this->exam, []);
     }
 }
