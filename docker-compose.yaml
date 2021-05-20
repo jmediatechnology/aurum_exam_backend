@@ -15,14 +15,14 @@ services:
             context: './.docker/mysql'
             dockerfile: 'Dockerfile'
             args:
-                user: '${DOCKER_DATABASE_USER}'
-                password: '${DOCKER_DATABASE_PASSWORD}'
-                database: '${DOCKER_DATABASE_NAME}'
+                user: '${DB_PASSWORD}'
+                password: '${DB_PASSWORD}'
+                database: '${DB_NAME}'
         restart: 'always'
         volumes:
             - 'database_aurum_exam:/var/lib/mysql'
         environment:
-            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+#            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
             MYSQL_DATABASE: '${DB_NAME}'
             MYSQL_USER: '${DB_USER}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
