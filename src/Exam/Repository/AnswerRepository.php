@@ -3,6 +3,7 @@
 namespace App\Exam\Repository;
 
 use App\Exam\Entity\Answer;
+use App\Exam\Entity\Exam;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use RuntimeException;

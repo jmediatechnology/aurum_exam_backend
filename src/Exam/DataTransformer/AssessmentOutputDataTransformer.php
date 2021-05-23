@@ -3,6 +3,7 @@
 namespace App\Exam\DataTransformer;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
+use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\Exam\Api\Resource\Assessment;
 use App\Exam\DataTransferObject\AssessmentOutput;
 use App\Exam\Entity\Exam;
@@ -12,10 +13,14 @@ use UnexpectedValueException;
 class AssessmentOutputDataTransformer implements DataTransformerInterface
 {
     private ScoreCalculator $scoreCalculator;
+    private ValidatorInterface $validator;
 
-    public function __construct(ScoreCalculator $scoreCalculator)
-    {
+    public function __construct(
+        ScoreCalculator $scoreCalculator,
+        ValidatorInterface $validator
+    ) {
         $this->scoreCalculator = $scoreCalculator;
+        $this->validator = $validator;
     }
 
     public function supportsTransformation($data, string $to, array $context = []): bool
@@ -36,6 +41,9 @@ class AssessmentOutputDataTransformer implements DataTransformerInterface
         }
 
         $assessment = $object;
+
+        $this->validator->validate($assessment);
+
         $exam = $assessment->getExam();
         if (!$exam instanceof Exam) {
             throw new UnexpectedValueException('No Exam found');

@@ -3,6 +3,7 @@
 namespace App\Exam\DataTransferObject;
 
 use App\Exam\Entity\Exam;
+use App\Exam\Validator\AnswerIdListConstraint;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 class AssessmentInput

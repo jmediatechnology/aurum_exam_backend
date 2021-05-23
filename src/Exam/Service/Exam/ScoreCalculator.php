@@ -23,7 +23,7 @@ class ScoreCalculator
             throw new UnexpectedValueException('This exam does not have any correct answer');
         }
 
-        $correctAnswerAmount = $this->calculateCorrectAnswerAmount($answerIdList);
+        $correctAnswerAmount = $this->calculateCorrectAnswerAmount($exam, $answerIdList);
 
         $score = (int) (($correctAnswerAmount / $maxCorrectAnswerAmount) * 100);
         if ($score > 100) {
@@ -46,9 +46,13 @@ class ScoreCalculator
         return $maxCorrectAnswerCount;
     }
 
-    private function calculateCorrectAnswerAmount(array $answerIdList): int
+    private function calculateCorrectAnswerAmount(Exam $exam, array $answerIdList): int
     {
         $correctAnswerCount = 0;
+
+        $perfectAnswerIdList = $this->buildPerfectAnswerIdList($exam);
+        $answerIdList = array_intersect($perfectAnswerIdList, $answerIdList);
+
         $answers = $this->answerRepository->findByListOfIds($answerIdList);
         foreach ($answers as $answer) {
             $correctAnswer = $answer->getCorrectAnswer();
@@ -57,5 +61,22 @@ class ScoreCalculator
             }
         }
         return $correctAnswerCount;
+    }
+
+    /**
+     * @return int[]
+     */
+    private function buildPerfectAnswerIdList(Exam $exam): array
+    {
+        $perfectAnswerIdList = [];
+        foreach ($exam->getQuestions() as $question) {
+            foreach ($question->getAnswers() as $answer) {
+                $correctAnswer = $answer->getCorrectAnswer();
+                if ($correctAnswer instanceof CorrectAnswer) {
+                    $perfectAnswerIdList[] = $answer->getId();
+                }
+            }
+        }
+        return $perfectAnswerIdList;
     }
 }

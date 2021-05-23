@@ -3,11 +3,12 @@
 namespace App\Exam\Factory;
 
 use App\Exam\Entity\Answer;
+use App\Exam\Entity\Question;
 
 class AnswerFactory
 {
-    public function create(): Answer
+    public function create(Question $question): Answer
     {
-        return new Answer();
+        return new Answer($question);
     }
 }

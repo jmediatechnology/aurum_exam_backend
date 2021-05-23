@@ -30,6 +30,7 @@ class Answer
      * )
      * @Groups({
      *      "question:read",
+     *      "exam:read",
      * })
      */
     private ?int $id = null;
@@ -41,6 +42,7 @@ class Answer
      * )
      * @Groups({
      *      "question:read",
+     *      "exam:read",
      * })
      */
     private string $answer = '';
@@ -50,9 +52,9 @@ class Answer
      * ... A Question has many Answers.
      *
      * @ORM\ManyToOne(targetEntity="Question", inversedBy="answers", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="question_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="question_id", referencedColumnName="id", nullable=false)
      */
-    private ?Question $question = null;
+    private Question $question;
 
     /**
      * An Answer belongs to one CorrectAnswer ...
@@ -65,6 +67,12 @@ class Answer
      * })
      */
     private ?CorrectAnswer $correctAnswer = null;
+
+    public function __construct(Question $question)
+    {
+        $question->addAnswer($this);
+        $this->question = $question;
+    }
 
     public function getId(): ?int
     {
@@ -81,7 +89,7 @@ class Answer
         $this->answer = $answer;
     }
 
-    public function getQuestion(): ?Question
+    public function getQuestion(): Question
     {
         return $this->question;
     }

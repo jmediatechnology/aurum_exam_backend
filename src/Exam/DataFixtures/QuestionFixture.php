@@ -36,17 +36,16 @@ class QuestionFixture extends Fixture
         De brandstof kan op twee manieren met lucht vermengd worden om de juiste brandstof-luchtmengsel te krijgen.  
         Een carburatie systeem en een brandstof-injectie systeem.'));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Een carburatie systeem, en een brandstof-injectie systeem (brandstofinspuiting)');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Een pitot-statisch systeem, en een gyroscopisch systeem');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Met een elektronische motormanagement systeem (FADEC)');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Geen, brandstof hoeft niet met lucht vermengd te worden');
 
         $answerA->setCorrectAnswer($correctAnswer);
-        $question->setAnswers([$answerA, $answerB, $answerC, $answerD]);
         $manager->persist($question);
 
         // ------------------------------------------------------ 2 ----------------------------------------------------
@@ -57,13 +56,13 @@ class QuestionFixture extends Fixture
         $correctAnswer->setExplanation(preg_replace('/\s+/', ' ', '
         De carburateur mengt brandstof en lucht in een bepaalde verhouding, en levert dit aan de motor. '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('De carburateur mengt brandstof en lucht, en levert dit aan het beluchtingsysteem');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('De carburateur mengt brandstof en lucht, en levert dit aan de motor');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('De carburateur mengt brandstof en lucht, en levert dit aan de brandstofpomp');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('De carburateur mengt brandstof en lucht, en levert dit aan de tankschakelaar');
 
         $answerB->setCorrectAnswer($correctAnswer);
@@ -72,20 +71,20 @@ class QuestionFixture extends Fixture
 
         // ------------------------------------------------------ 3 ----------------------------------------------------
         $question = $this->questionFactory->create();
-        $question->setQuestion('Op welke plek in het vliegtuig zijn de brandstoftanks meestal geïntergreerd?');
+        $question->setQuestion('Op welke plek in het vliegtuig worden de brandstoftanks meestal geïntergreerd?');
 
         $correctAnswer = $this->correctAnswerFactory->create();
         $correctAnswer->setExplanation(preg_replace('/\s+/', ' ', '
-        De brandstoftanks bevinden zich meestal in de vleugel/vleugelconstructie. '));
+        In de vleugel/vleugelconstructie. '));
 
-        $answerA = $this->answerFactory->create();
-        $answerA->setAnswer('De gehsele lengte van het vliegtuig');
-        $answerB = $this->answerFactory->create();
-        $answerB->setAnswer('De achterkant van het vliegtuig');
-        $answerC = $this->answerFactory->create();
-        $answerC->setAnswer('De romp van het vliegtuig');
-        $answerD = $this->answerFactory->create();
-        $answerD->setAnswer('Vleugel / vleugelconstructie');
+        $answerA = $this->answerFactory->create($question);
+        $answerA->setAnswer('De brandstoftanks zijn verspreidt over de gehele lengte van het vliegtuig');
+        $answerB = $this->answerFactory->create($question);
+        $answerB->setAnswer('De brandstoftanks zitten aan de achterkant van het vliegtuig');
+        $answerC = $this->answerFactory->create($question);
+        $answerC->setAnswer('De brandstoftanks zitten in de romp van het vliegtuig');
+        $answerD = $this->answerFactory->create($question);
+        $answerD->setAnswer('De brandstoftanks zitten in de vleugels / vleugelconstructie');
 
         $answerD->setCorrectAnswer($correctAnswer);
         $question->setAnswers([$answerA, $answerB, $answerC, $answerD]);
@@ -102,13 +101,13 @@ class QuestionFixture extends Fixture
         Om de carburateur te voorzien van brandstof wordt er een brandstofpomp gebruikt.
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('D.m.v. een tankschakelaar');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('D.m.v. een carburateur');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('D.m.v. een brandstofpomp');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('D.m.v. zwaartekracht (gravity feed)');
 
         $answerC->setCorrectAnswer($correctAnswer);
@@ -124,13 +123,13 @@ class QuestionFixture extends Fixture
         Mechanisch (engine driven fuel pump) en als back-up elektrisch (electrical fuel pump). 
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Mechanisch en elektrisch');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Elektrisch');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Mechanisch');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Aerodynamisch');
 
         $answerA->setCorrectAnswer($correctAnswer);
@@ -147,13 +146,13 @@ class QuestionFixture extends Fixture
         Als er onderdruk in de brandstoftank ontstaat, dan kan brandstof niet naar de carburateur vervoerd worden. 
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Een vapour lock');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('De brandstof kan niet vervoerd worden naar de carburateur');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('De brandstof zal kunnen exploderen');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('De brandstoftank zal kunnen lekken');
 
         $answerB->setCorrectAnswer($correctAnswer);
@@ -171,13 +170,13 @@ class QuestionFixture extends Fixture
         Deze instrumenten zorgen ervoor dat er altijd atmosferische druk op de brandstof heerst. 
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Met een beluchtingsgat');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Met een luchtfilter');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Met een carburateur');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Met toevoerleidingen naar de motor');
 
         $answerA->setCorrectAnswer($correctAnswer);
@@ -200,13 +199,13 @@ class QuestionFixture extends Fixture
         De vlotterkamer is dus geen maat voor het volume van de brandstoftank. 
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Met een peilstok');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Met een vlotter');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Met een peilstok of vlotter');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Met een peilstok of vlotter of in de vlotterkamer in de carburateur');
 
         $answerC->setCorrectAnswer($correctAnswer);
@@ -224,13 +223,13 @@ class QuestionFixture extends Fixture
         De doorstroming van de brandstof naar de motor wordt dan bemoeilijkt of zelfs helemaal geblokkeerd. 
         '));
 
-        $answerA = $this->answerFactory->create();
-        $answerA->setAnswer('Een vapour lock is een instrument om gas op te vangen');
-        $answerB = $this->answerFactory->create();
-        $answerB->setAnswer('Een vapour lock is een instrument om brandstof te vernevelen');
-        $answerC = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
+        $answerA->setAnswer('Een vapour lock is een instrument om damp op te vangen');
+        $answerB = $this->answerFactory->create($question);
+        $answerB->setAnswer('Een vapour lock is een instrument dat brandstof omzet naar damp');
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Een vapour lock blokeert de doorstroming van de brandstof in de brandstofleiding');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Een vapour lock blokeert de beluchtingsgat');
 
         $answerC->setCorrectAnswer($correctAnswer);
@@ -252,13 +251,13 @@ class QuestionFixture extends Fixture
           
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('De temperatuur in de motorruimte');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Verontreinigingen in de brandstof');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Het gebruik van brandstof met een laag octaan-getal');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Hoge luchtvochtigheid');
 
         $answerA->setCorrectAnswer($correctAnswer);
@@ -274,13 +273,13 @@ class QuestionFixture extends Fixture
         De symptomen van een vapour lock zijn een onregelmatig lopende, inhoudende of afslaande motor.
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Een onregelmatig lopende, inhoudende of afslaande motor');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Brand in de brandstoftank');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Een blokkering in de brandstoftank');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Een lekkende brandstoftank');
 
         $answerA->setCorrectAnswer($correctAnswer);
@@ -299,13 +298,13 @@ class QuestionFixture extends Fixture
         maar de koeling verbeteren is wel mogelijk tijdens de vlucht.
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('De elektrische brandstofpomp aanzetten');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('De elektrische brandstofpomp aanzetten en verbeteren van de koeling');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('De koeling verbeteren');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('De carburateurvoorverwarmer aanzetten');
 
         $answerB->setCorrectAnswer($correctAnswer);
@@ -328,13 +327,13 @@ class QuestionFixture extends Fixture
         dit mengsel bestaat dus uit lucht met 6.4% benzine.
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Een mengsel dat bestaat uit 1 gram benzine en 14.7 gram lucht');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Een mengsel dat bestaat uit 14.7 gram benzine en 1 gram lucht');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Een mengsel dat bestaat uit 14.7 gram benzine en 14.7 gram lucht');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Een mengsel dat bestaat uit 1 gram benzine en 1 gram lucht');
 
         $answerA->setCorrectAnswer($correctAnswer);
@@ -352,13 +351,13 @@ class QuestionFixture extends Fixture
         dat komt overeen met een lucht-brandstofverhouding van 12.5:1 tot 13.3:1.        
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Bij een arm mengsel');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Bij een enigzins arm mengsel');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Bij een rijk mengsel');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Bij een enigzins rijk mengsel');
 
         $answerD->setCorrectAnswer($correctAnswer);
@@ -374,13 +373,13 @@ class QuestionFixture extends Fixture
         Meer vermogen, en een koelend effect
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Meer vermogen');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Een koelend effect');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Meer vermogen, en een koelend effect');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Meer vermogen, een koelend effect, en verbeterd de motmorsmering');
 
         $answerC->setCorrectAnswer($correctAnswer);
@@ -389,8 +388,7 @@ class QuestionFixture extends Fixture
         // ------------------------------------------------------ 16 ---------------------------------------------------
 
         $question = $this->questionFactory->create();
-        $question->setQuestion(preg_replace('/\s+/', ' ', '
-        Wat moet er gebeuren met de brandstof-luchtverhouding met toenemende hoogte?'));
+        $question->setQuestion('Wat moet er gebeuren met de brandstof-luchtverhouding met toenemende hoogte?');
 
         $correctAnswer = $this->correctAnswerFactory->create();
         $correctAnswer->setExplanation(preg_replace('/\s+/', ' ', '
@@ -402,13 +400,13 @@ class QuestionFixture extends Fixture
         Om dezelfde brandstof-luchtverhouding instelling te behouden dient men de mengsel te verarmen.  
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('De mengsel verarmen');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('De mengsel verrijken');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('De mengsel onveranderd laten');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('De mengsel instelling aan de automatische piloot over laten');
 
         $answerA->setCorrectAnswer($correctAnswer);
@@ -424,13 +422,13 @@ class QuestionFixture extends Fixture
         AVGAS is momenteel het meest gebruikte brandstof voor vliegtuigen met een zuigermotor.  
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Euro 95');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('AVGAS');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('JET-A1');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Diesel');
 
         $answerB->setCorrectAnswer($correctAnswer);
@@ -443,7 +441,7 @@ class QuestionFixture extends Fixture
 
         $correctAnswer = $this->correctAnswerFactory->create();
         $correctAnswer->setExplanation(preg_replace('/\s+/', ' ', '
-        De klopvastheid duit de kwaliteit van benzine aan. 
+        De klopvastheid duidt de kwaliteit van benzine aan. 
         
         Benzine moet op de juiste timing in de motor verbrand worden. 
         Als benzine op het verkeerde verbrand wordt, dan spreekt men van detonatie of "kloppen". 
@@ -451,13 +449,13 @@ class QuestionFixture extends Fixture
         Klopvastheid duidt de weerstand tegen detonatie aan, en wordt uitgedrukt in het octaangetal.   
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('De kwaliteit van benzine');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('De bruikbaarheid van benzine bij lage temperaturen');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('De bruikbaarheid van benzine bij hoge temperaturen');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('De temperatuur waarbij benzine stolt');
 
         $answerA->setCorrectAnswer($correctAnswer);
@@ -474,13 +472,13 @@ class QuestionFixture extends Fixture
         zorgt ervoor dat een hoge klopvastheid bereikt kan worden.   
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Door de toevoeging van de loodverbinding Tetra-Ethyllood');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Door de toevoeging van Tetrahydrocannabinol');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Door de toevoeging van n-heptaan');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Door de toevoeging van iso-octaan');
 
         $answerA->setCorrectAnswer($correctAnswer);
@@ -504,13 +502,13 @@ class QuestionFixture extends Fixture
         Bij het drainen bevindt het water zich dan onderin. 
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Met een fuel tester');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Met motorische instrumenten dat weergegeven wordt in de cockpit');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Met water');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Met aftappunten');
 
         $answerA->setCorrectAnswer($correctAnswer);
@@ -536,13 +534,13 @@ class QuestionFixture extends Fixture
         Vooral bij gebruik op de grond bestaat de kans op het aanzuigen van verontreinigde lucht.
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('De Carburateurvoorverwarmer (CVV) verwarmt de brandstof');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('De Carburateurvoorverwarmer (CVV) verwarmt de brandstof-luchtmengsel');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('De Carburateurvoorverwarmer (CVV) voorkomt ijs in de carburateur');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer(preg_replace('/\s+/', ' ', '
         De Carburateurvoorverwarmer (CVV) voorkomt ijs in de carburateur 
         en doet dienst als alternatieve lucht voorziening
@@ -554,8 +552,9 @@ class QuestionFixture extends Fixture
 
         // ------------------------------------------------------ 22 ---------------------------------------------------
         $question = $this->questionFactory->create();
-        $question->setQuestion(preg_replace('/\s+/', ' ', '
-        Wat gebeurd er als er ijs in de carburateur is, en de Carburateurvoorverwarmer (CVV) aangezet wordt?
+        $question->setQuestion(preg_replace('/\s+/', ' ',
+        'Wat gebeurd er met de vermogen van de motor als er ijs in de carburateur is, 
+         en de Carburateurvoorverwarmer (CVV) aangezet wordt?
         '));
 
         $correctAnswer = $this->correctAnswerFactory->create();
@@ -580,13 +579,13 @@ class QuestionFixture extends Fixture
         Het kan een tijdje duren voordat het ijs in de carburateur gesmolten is.  
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Het vermogen van de motor stijgt direct');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Het vermogen van de motor daalt');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Het vermogen van de motor daalt, maar stijgt daarna weer');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Het vermogen van de motor sijgt direct, maar daalt daarna weer');
 
         $answerC->setCorrectAnswer($correctAnswer);
@@ -619,13 +618,13 @@ class QuestionFixture extends Fixture
         Bij een laag toerental is de motor relatief koel. 
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer('Hoge luchtvochtigheid');
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer('Hoge luchtvochtigheid en laag toerental');
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Hoge luchtvochtigheid en op grote hoogtes');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer('Hoge luchtvochtigheid en hoog toerental');
 
         $answerB->setCorrectAnswer($correctAnswer);
@@ -641,19 +640,19 @@ class QuestionFixture extends Fixture
         Alle antwoorden zijn correct. 
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer(preg_replace('/\s+/', ' ', '
         Het grootste  nadeel van een carburateur zijn drukverlaging en verdamping, 
-        daardor kan ijs in de carburatuer ontstaan.    
+        daardor kan ijs in de carburateur ontstaan.    
         '));
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer(preg_replace('/\s+/', ' ', '
         Bij een carburateur is de verdeling van het mengsel over de cilinders niet gelijkmatig.
         Bij een brandstofinjectie-systeem krijgt elke cilinder een afgepaste hoeveelheid brandstof van een verstuiver. 
         '));
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Een brandstofinjectie-systeem is complexer en duurder dan een carburatiemotor');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer(
             'Bij een brandstofinjectie-systeem is de kans op een vapour lock groter dan bij een carburatiemotor.
         ');
@@ -674,19 +673,19 @@ class QuestionFixture extends Fixture
         Alle antwoorden zijn correct. 
         '));
 
-        $answerA = $this->answerFactory->create();
+        $answerA = $this->answerFactory->create($question);
         $answerA->setAnswer(preg_replace('/\s+/', ' ', '
         Een dieselmotor zuigt geen brandstof-luchtmengsel aan, maar uitsluitend lucht.
         Het elektronische motormanagementsysteem (FADEC) bepaald aan de hand van aangezogen lucht, gasstand, 
         temperatuur, etc. de juiste hoeveelheid brandstof die moet worden ingespoten. 
         '));
-        $answerB = $this->answerFactory->create();
+        $answerB = $this->answerFactory->create($question);
         $answerB->setAnswer(
             'Een dieselmotor werkt met een hogere compressieverhouding en cilinderdruk t.o.v. een benzinemotor'
         );
-        $answerC = $this->answerFactory->create();
+        $answerC = $this->answerFactory->create($question);
         $answerC->setAnswer('Een dieselmotor werkt met een hogere cilinderdruk t.o.v. een benzinemotor');
-        $answerD = $this->answerFactory->create();
+        $answerD = $this->answerFactory->create($question);
         $answerD->setAnswer(
             'Een dieselmotor heeft geen gasklep; de motor zuigt altijd de maximale hoeveelheid lucht aan'
         );
@@ -698,6 +697,7 @@ class QuestionFixture extends Fixture
         $question->setAnswers([$answerA, $answerB, $answerC, $answerD]);
         $manager->persist($question);
         // -------------------------------------------------------------------------------------------------------------
+
         $manager->flush();
     }
 }

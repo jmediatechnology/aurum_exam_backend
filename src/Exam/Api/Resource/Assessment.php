@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Action\NotFoundAction;
 use App\Exam\Entity\Exam;
+use App\Exam\Validator\AnswerIdListConstraint;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Exam\DataTransferObject\AssessmentOutput;
 
@@ -57,6 +58,7 @@ class Assessment
      * @Groups ({
      *     "assessment:post",
      * })
+     * @AnswerIdListConstraint
      */
     private array $answerIdList;
 

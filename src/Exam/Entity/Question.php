@@ -38,6 +38,7 @@ class Question
      * )
      * @Groups({
      *      "question:read",
+     *      "exam:read",
      * })
      */
     private ?int $id = null;
@@ -50,6 +51,7 @@ class Question
      * )
      * @Groups({
      *      "question:read",
+     *      "exam:read",
      * })
      */
     private string $question = '';
@@ -69,6 +71,7 @@ class Question
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"persist", "remove"})
      * @Groups({
      *      "question:read",
+     *      "exam:read",
      * })
      */
     private Collection $answers;
